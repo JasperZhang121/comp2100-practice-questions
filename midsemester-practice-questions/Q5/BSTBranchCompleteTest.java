@@ -2,12 +2,17 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 /**
  * Fill in the items below with your UID and name:
  * @author:
  * @UID:
  */
+
 public class BSTBranchCompleteTest {
+
+
 	@Test(timeout=1000)
 	public void test() {
 		
@@ -17,5 +22,8 @@ public class BSTBranchCompleteTest {
 		//HINT: assertEquals(xx, bc.DNATreeCalc(xx, xx, xx));
 		
 		// END YOUR CODE
+
+
+
 	}
 }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Fill in the items below with your UID and name:
  * @author:
@@ -14,11 +16,35 @@ public class BST {
 	 * Please implement this method and feel free to add additional helper methods
 	 * @return The results which follows the rules specified in the given question sheet
 	 */
+
+	/**
+	 * 1. All bases of all nodes (odd number children)
+	 * 2. not found given key return "CGTA"
+	 * 3. if given key is found but rule 1 not satisfied, return null
+	 */
 	public String DNAGenerator(Integer key) {
-		// START YOUR CODE
-		
-		return null;// You are allowed to remove or change this default return value
-		// END YOUR CODE
+		String s="";
+		var curNode = find(root,key);
+		if (curNode!=null){
+			if (curNode.left==null && curNode.right==null){
+				return null;
+			}
+			s=checkOdd(curNode);
+			return s;
+		}
+		return "CGTA";
+	}
+
+	public String checkOdd(Node node){
+		if (node==null){
+			return "";
+		}else if (node.right==null && node.left!=null){
+			return node.value + checkOdd(node.left);
+		}else if (node.right!=null && node.left==null){
+			return node.value + checkOdd(node.right);
+		} else{
+			return checkOdd(node.left)+checkOdd(node.right);
+		}
 	}
 
 	/**

@@ -4,22 +4,33 @@ public Integer evenNodeSum()
  */
 public class BST {
 	
-	Node root;
+	Node root = null;
 
 	/**
 	 * Please implement this method and feel free to add additional helper methods
 	 * @return
 	 */
 	public Integer evenNodeSum() {
-		// START YOUR CODE
-		
-		return null; //you are allowed to change this return statement
-		// END YOUR CODE
+		return helper(this.root);
 	}
+
+	public Integer helper(Node root){
+		if (root==null){
+			return 0;
+		}else {
+			if (root.left==null && root.right!=null){
+				return helper(root.right);
+			}
+			else if (root.left!=null && root.right==null){
+				return helper(root.left);
+			}else {
+				return root.value+helper(root.left)+helper(root.right);
+			}
+		}
+	}
+
 	
-	public BST() {
-		this.root = null;
-	}
+	public BST() {this.root = null;}
 
 	/**
 	 * This implementation of insert follows the pseudo code in the lecture slide.

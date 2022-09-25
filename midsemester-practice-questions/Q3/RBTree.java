@@ -15,21 +15,45 @@ public class RBTree<T extends Comparable<T>> {
 	 * @return
 	 */
 	public boolean testProp1() {
-		// START YOUR CODE
-		
-		return false; //you are allowed to change this return statement
-		// END YOUR CODE
+		if (this.root.colour==Colour.RED){
+			return false;
+		}
+		return checkLeaf(this.root);
 	}
+
+	public boolean checkLeaf(Node root){
+		if (root.left==null && root.right==null){
+			return root.colour==Colour.BLACK;
+		}else {
+			if (root.left!=null && root.right==null){
+				return checkLeaf(root.left);
+			}else if (root.left==null && root.right!=null){
+				return checkLeaf(root.right);
+			}else {
+				return checkLeaf(root.right)&&checkLeaf(root.left);
+			}
+		}
+	}
+
 
 	/**
 	 * Please implement this method and feel free to add additional helper methods
 	 * @return
 	 */
 	public boolean testProp2() {
-		// START YOUR CODE
-		
-		return false; //you are allowed to change this return statement
-		// END YOUR CODE
+		return checkParent(this.root);
+	}
+
+	public boolean checkParent(Node root){
+		if (root==null){
+			return true;
+		}else {
+			if (root.colour==Colour.RED){
+				return root.parent.colour==Colour.BLACK && checkParent(root.right)&&checkParent(root.left);
+			}else {
+				return checkParent(root.right)&&checkParent(root.left);
+			}
+		}
 	}
 
 

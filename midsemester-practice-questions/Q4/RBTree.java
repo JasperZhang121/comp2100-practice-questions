@@ -16,11 +16,35 @@ public class RBTree<T extends Comparable<T>> {
 	 * @return
 	 */
 	public boolean testProp3() {
-		// START YOUR CODE
-		
-		return false; //you are allowed to change this return statement
-		// END YOUR CODE
+		ArrayList<Node<T>> nodes = new ArrayList<>();
+		nodes.add(root);
+
+		while (!nodes.isEmpty()){
+			var curNode = nodes.remove(nodes.size()-1); // always remove the last element in the list
+			if (curNode==null){
+				continue;								// if curNode == null, skip , which will end the loop
+			}
+			int lbh = blackHeight(curNode.left);		// left black height of curNode
+			int rbh = blackHeight(curNode.right);		// right black height of curNode
+			if (lbh!=rbh){
+				return false;							// if left balck height != right black height return false
+			}
+			nodes.add(curNode.left);					// repeat
+			nodes.add(curNode.right);					// repeat
+		}
+		return true;
 	}
+
+	public int blackHeight(Node root){
+		if (root==null){
+			return 1; // base case
+		}
+		int l = blackHeight(root.left); // go left
+		int r = blackHeight(root.right); // go right
+		return Math.max(l,r) +(root.colour==Colour.BLACK? 1:0);
+		// get the maximum leve that can get by left and right recursion, whenever enconter balck node return value+=1
+	}
+
 
 	/**
 	 * Initialize empty RBTree

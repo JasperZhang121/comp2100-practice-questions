@@ -3,6 +3,9 @@
  * 
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BST {
 	
 	Node root;
@@ -12,11 +15,25 @@ public class BST {
 	 * @return
 	 */
 	public Integer oddNodeSum() {
-		// START YOUR CODE
-		
-		return null; //you are allowed to change this return statement
-		// END YOUR CODE
+		return helper(this.root);
 	}
+
+	public Integer helper(Node root){
+		if (root==null){
+			return 0;
+		}else {
+			if (root.left==null && root.right!=null){
+				return root.value+helper(root.right);
+			}
+			else if (root.right==null && root.left!=null){
+				return root.value+ helper(root.left);
+			}
+			else {
+				return helper(root.left)+helper(root.right);
+			}
+		}
+	}
+
 	
 	public BST() {
 		this.root = null;

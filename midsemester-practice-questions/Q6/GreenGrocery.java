@@ -14,12 +14,7 @@ public class GreenGrocery implements Grocery<Fruit> {
 
 	@Override
 	public void restock(List<Fruit> fruits) {
-
-		//START YOUR CODE
-
-
-
-		//END YOUR CODE
+		this.fruits.addAll(fruits);
 	}
 
 	@Override
@@ -39,28 +34,15 @@ public class GreenGrocery implements Grocery<Fruit> {
 
 		@Override
 		public boolean hasNext() {
-
-			// START YOUR CODE
-
-
-
-			//You are allowed to change this return value.
+			if (grocery.fruits.size()!=0 && index<grocery.fruits.size())return true;
 			return false;
 
-			// END YOUR CODE
 		}
 
 		@Override
 		public Fruit next() {
-
-			// START YOUR CODE
-
-
-
-			//You are allowed to change this return value.
+			if (hasNext())return grocery.fruits.get(index++);
 			return null;
-
-			// END YOUR CODE
 		}
 	}
 }

@@ -18,7 +18,7 @@ public class BranchComplete {
 		int ret = 0;
 
 		int sum = this.tree.sum(this.tree.root);
-				
+
 		if (sum < a) {
 			if (sum > b) {
 				ret = sum + b;
