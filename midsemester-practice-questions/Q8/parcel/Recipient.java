@@ -5,11 +5,7 @@ public class Recipient {
 	}
 
 	public void receive(Parcel parcel) {
-		// TODO
-		// START YOUR CODE
-
-		
-		
-		// END YOUR CODE
+		if (this== parcel.getRecipient()) parcel.setStatus(Status.DELIVERED);
+		else parcel.setStatus(Status.RETURNED);
 	}
 }

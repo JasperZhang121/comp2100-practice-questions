@@ -7,24 +7,16 @@ public class TransportOffice {
 	}
 
 	public static TransportOffice getInstance() {
-
-		// TODO
-		// START YOUR CODE
-
-		// YOU ARE ALLOWED TO CHANGE THIS RETURNED VALUE
+		if (instance==null) instance = new TransportOffice();
 		return instance;
-
-		// END YOUR CODE
 	}
 
 	public Transport transportBy(Parcel parcel) {
 
-		// TODO
-		// START YOUR CODE
+		if (parcel.getAllowedDays()<=1 && parcel.getWeight()<=20) {parcel.setStatus(Status.TRANSFERRING); return Transport.AIRPLANE;}
+		else if ( parcel.getAllowedDays()>1 && parcel.getAllowedDays()<7) {parcel.setStatus(Status.TRANSFERRING);return Transport.TRAIN;}
+		else if (parcel.getAllowedDays()>=7){ parcel.setStatus(Status.TRANSFERRING); return Transport.SHIP;}
+		else {parcel.setStatus(Status.RETURNED); return null;}
 
-		// YOU ARE ALLOWED TO CHANGE THIS RETURNED VALUE
-		return null;
-
-		// END YOUR CODE
 	}
 }

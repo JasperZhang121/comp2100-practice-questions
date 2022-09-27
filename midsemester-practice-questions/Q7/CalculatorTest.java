@@ -17,7 +17,7 @@ public class CalculatorTest {
 	
 	@Test(expected = ArithmeticException.class)
 	public void test2() {
-		
+
 		Calculator cal = new Calculator();
 
 		cal.divide(3, 0);

@@ -7,11 +7,8 @@ public class Division extends Operation {
 
 	@Override
 	public double evaluate() {
-
 		//START YOUR CODE
-
-
-
-		//END YOUR CODE
+		if (b == 0) throw new ArithmeticException();
+		return a/b;
 	}
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class BST {
@@ -37,7 +38,18 @@ public class BST {
 		// TODO
 		// HINT: Use recursion
 		// START YOUR CODE
-
 		// END YOUR CODE
+
+		var lis = new ArrayList<Key>();
+		helper(this.root,lis);
+		return lis;
 	}
+
+	public void helper(Node node, ArrayList<Key> lis){
+		if (node==null)return;
+		lis.add(node.key);
+		helper(node.right,lis);
+		helper(node.left,lis);
+	}
+
 }

@@ -2,7 +2,7 @@
 public class Multiplication extends Operation {
 
 	public Multiplication(double a, double b) {
-		super(a, b);
+		super(a,b);
 	}
 
 	@Override
