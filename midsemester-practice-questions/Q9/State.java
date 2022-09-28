@@ -1,3 +1,6 @@
+import exceptions.NullCharacterException;
+import exceptions.NullKeyEventException;
+
 public interface State {
 
 	default void handle(Character character, Key event) {
@@ -15,6 +18,8 @@ public interface State {
 		// START YOUR CODE
 		// END YOUR CODE
 
+		if (event==null)throw new NullKeyEventException();
+		if (character==null) throw new NullCharacterException();
 
 		if (character.getState()==StandState.getInstance()){
 			if (event== Key.RIGHT) character.setState(WalkState.getInstance());
