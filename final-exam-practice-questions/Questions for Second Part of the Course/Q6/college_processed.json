@@ -1,0 +1,41 @@
+{
+  "name": "Computer Science",
+  "students": [
+    {
+      "name": "John",
+      "courses": [
+        "Network",
+        "Database",
+        "Programming"
+      ]
+    },
+    {
+      "name": "Alice",
+      "courses": [
+        "Algorithm",
+        "Network",
+        "Programming"
+      ]
+    },
+    {
+      "name": "Andy",
+      "courses": [
+        "Network",
+        "Algorithm"
+      ]
+    },
+    {
+      "name": "David",
+      "courses": [
+        "Database",
+        "Programming"
+      ]
+    },
+    {
+      "name": "Peter",
+      "courses": [
+        "Algorithm"
+      ]
+    }
+  ]
+}

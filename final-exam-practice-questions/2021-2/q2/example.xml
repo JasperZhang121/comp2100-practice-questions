@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<persons>
+    <person>
+        <name>David</name>
+        <gender>male</gender>
+        <age>31</age>
+        <occupation>engineer</occupation>
+    </person>
+    <person>
+        <name>Patrick</name>
+        <gender>male</gender>
+        <age>53</age>
+        <occupation>professor</occupation>
+    </person>
+    <person>
+        <name>Lisa</name>
+        <gender>female</gender>
+        <age>28</age>
+        <occupation>nurse</occupation>
+    </person>
+    <person>
+        <name>Michael</name>
+        <gender>male</gender>
+        <age>37</age>
+        <occupation>doctor</occupation>
+    </person>
+    <person>
+        <name>Emma</name>
+        <gender>female</gender>
+        <age>26</age>
+        <occupation>actress</occupation>
+    </person>
+    <person>
+        <name>Alice</name>
+        <gender>female</gender>
+        <age>17</age>
+        <occupation>student</occupation>
+    </person>
+</persons>
