@@ -1,0 +1,38 @@
+{
+  "name": "ACT Software",
+  "employees": [
+    {
+      "name": "John",
+      "skills": [
+        "Java",
+        "PHP"
+      ]
+    },
+    {
+      "name": "Peter",
+      "skills": [
+        "Java"
+      ]
+    },
+    {
+      "name": "David",
+      "skills": [
+        "PHP"
+      ]
+    },
+    {
+      "name": "Eva",
+      "skills": [
+        "HTML",
+        "C++"
+      ]
+    },
+    {
+      "name": "Alice",
+      "skills": [
+        "Java",
+        "HTML"
+      ]
+    }
+  ]
+}

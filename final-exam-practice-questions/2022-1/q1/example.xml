@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<States>
+    <DOWN>LieProneState</DOWN>
+    <DOWN>LieProneState</DOWN>
+    <S>ShootState</S>
+    <RESET>StandState</RESET>
+    <RIGHT>RunState</RIGHT>
+    <DOWN>RunState</DOWN>
+    <RESET>StandState</RESET>
+    <UP>StandState</UP>
+</States>
