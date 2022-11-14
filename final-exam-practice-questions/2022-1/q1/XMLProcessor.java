@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,6 +36,11 @@ public class XMLProcessor {
 			// HINT: You can use getChildNodes() function in the XML library to obtain a
 			// list of child nodes of the parent tag STATE_ROOT_ELEMENT.
 
+			var res = new ArrayList<List<String>>();
+			var nodeList = doc.getChildNodes();
+
+
+
 			// ########## YOUR CODE ENDS HERE ##########
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -57,6 +63,10 @@ public class XMLProcessor {
 
 			// TODO
 			// ########## YOUR CODE STARTS HERE ##########
+
+
+
+
 
 			// ########## YOUR CODE ENDS HERE ##########
 

@@ -131,8 +131,8 @@ public class ApplicationTest {
                 personNodes.add(elem);
             }
         }
-        assertEquals(6, personNodes.size());
 
+        assertEquals(6, personNodes.size());
         assertEquals(33, Integer.parseInt(personNodes.get(0).getElementsByTagName("id").item(0).getTextContent())) ;
         assertEquals(20, Integer.parseInt(personNodes.get(0).getElementsByTagName("age").item(0).getTextContent())) ;
         assertEquals("John", personNodes.get(0).getElementsByTagName("name").item(0).getTextContent()) ;

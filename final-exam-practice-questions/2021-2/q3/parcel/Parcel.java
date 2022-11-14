@@ -47,8 +47,11 @@ public class Parcel implements Comparable<Parcel> {
 	public int compareTo(Parcel other) {
 		// TODO
 		// START YOUR CODE
-
-		return 0;
+		var distance_this = Math.sqrt(Math.pow(20-this.recipient.getLocation().getX(),2)+Math.pow(10-this.recipient.getLocation().getY(),2));
+		var distance_other = Math.sqrt(Math.pow(20-other.recipient.getLocation().getX(),2)+Math.pow(10-other.recipient.getLocation().getY(),2));
+		if (distance_this>distance_other) return 1;
+		else if (distance_this<distance_other) return -1;
+		else return 0;
 		// END YOUR CODE
 	}
 

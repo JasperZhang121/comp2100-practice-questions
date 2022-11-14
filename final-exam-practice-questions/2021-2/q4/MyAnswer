@@ -1,0 +1,14 @@
+1. We should choose some design patterns and clearly draw the UML diagram for demonstrating how the software is designed,
+and this also helps us for future maintenance when we need to add some additional features.
+2. For increasing the reliability, there should be many unit test and it would be good for the test cover at least 75% of
+statements in the software for avoiding obvious bugs. Meanwhile, use either white box or black box for testing.
+3. Choosing a good data structure may be helpful because suitable data structure will save us time for fixing inserting or
+deleting bugs when we modify the data stored in the system/cloud.
+4. If there is input taken from users, designers may think a appropriate grammar, which can extract useful information and
+excluding confusing strings.
+5. Sometimes, we may need to use extra resources from outside/ internet, should choose to use those we can get the
+IP or copyright in order to not get involved to some troubles.
+6. Some comments should be added for each method or class. Meanwhile, the JML can be used for providing semantics to formally
+describe the behaviour of a java module.
+7. Refactoring is necessary, deleting redundant or unused variables and methods. Try to apply many methods for preventing
+code smell.

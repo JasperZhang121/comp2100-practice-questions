@@ -1,6 +1,8 @@
+import org.junit.function.ThrowingRunnable;
+
 public class MyInteger {
 
-	public static int parseInt(String s) throws NumberFormatException {
+	public static int parseInt(String s)  {
 		int num = 0;
 		
 		for (int i = 0; i < s.length(); i++) {

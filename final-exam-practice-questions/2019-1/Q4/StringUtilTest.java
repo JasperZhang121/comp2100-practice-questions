@@ -1,6 +1,8 @@
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.assertEquals;
+//import org.junit.jupiter.api.Test;
 
 class StringUtilTest {
 
@@ -11,7 +13,8 @@ class StringUtilTest {
 		// 
 		// All test cases should be included in this method. Do not create another method. 
 		// Auto grader will not check the other methods created individually
-		
+
+		assertEquals("a",StringUtil.collapseNewlines("a"));
 
 	}
 

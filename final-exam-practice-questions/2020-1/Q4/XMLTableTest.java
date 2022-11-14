@@ -25,6 +25,7 @@ public class XMLTableTest {
 
 		table.insert(Customer.TABLE_NAME, c1);
 
+
 		assertTrue(Files.exists(Paths.get(FileUtil.getTableFileName(Customer.TABLE_NAME))));
 
 		List<Customer> customers = table.load(Customer.TABLE_NAME);
@@ -77,7 +78,7 @@ public class XMLTableTest {
 		assertTrue(Files.exists(Paths.get(FileUtil.getTableFileName(Customer.TABLE_NAME))));
 
 		customers = table.load(Customer.TABLE_NAME);
-		
+
 		assertEquals(customers.size(), 2);
 		assertEquals(customers.get(0), c1);
 		assertEquals(customers.get(1), c2);

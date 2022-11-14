@@ -4,6 +4,9 @@
  */
 package tree;
 
+import java.security.PublicKey;
+import java.util.ArrayList;
+
 /**
  * Binary search tree with integer keys (values). {@code insert} method is
  * provided.
@@ -24,10 +27,39 @@ public class BST {
 	 */
 	public Boolean find(int value) {
 
-		// start your code
+/*		// start your code
+		return find_helper(root,value);
+		// end your code*/
 
-		// end your code
+		var res = false;
+		if (root==null)return false;
+		if (root.value==value)return true;
+		if (root.left!=null){
+			BST bst = new BST();
+			bst.root=root.left;
+			res = bst.find(value);
+		}
+		if (root.right!=null){
+			BST bst = new BST();
+			bst.root=root.right;
+			res = res || bst.find(value);
+		}
+		return res;
 	}
+
+	public Boolean find_helper(Node node, int value){
+		if (node==null)return false;
+		if (node.value==value)return true;
+		var res = false;
+		if (value>node.value){
+			res = res || find_helper(node.right,value);
+		}
+		if (value<node.value){
+			res = res || find_helper(node.left,value);
+		}
+		return res;
+	}
+
 
 	/**
 	 * Q2 - Task2 TODO: Implement "delete" method. Find the node with {@code value}
@@ -42,9 +74,44 @@ public class BST {
 	public void delete(int value) {
 
 		// start your code
-
+		root = delete_helper(value);
 		// end your code
 	}
+
+	public Node delete_helper(int value){
+		if (root==null)return root;
+		if (value< root.value){
+			BST bst = new BST();
+			bst.root = root.left;
+			root.left = bst.delete_helper(value);
+		}
+		else if (value> root.value){
+			BST bst = new BST();
+			bst.root = root.right;
+			root.right = bst.delete_helper(value);
+		}
+		else {
+			if (root.left==null) return root.right;
+			else if (root.right==null) return root.left;
+			root.value = minValue(root.right);
+			BST bst = new BST();
+			bst.root = root.right;
+			root.right = bst.delete_helper(root.value);
+		}
+		return root;
+	}
+
+	int minValue(Node root)
+	{
+		int minv = root.value;
+		while (root.left != null)
+		{
+			minv = root.left.value;
+			root = root.left;
+		}
+		return minv;
+	}
+
 
 	/**
 	 * Q2 - Task3 TODO: Implement "sumEvenNodes" function. The method should return
@@ -56,10 +123,45 @@ public class BST {
 	 */
 	public int sumEvenNodes() {
 		//start your code
-		
-		
-		
+
+		/*var lis = new ArrayList<Node>();
+		sumEvenHelper(lis);
+		var total = 0;
+		for (int i = 0; i < lis.size(); i++) {
+			total+=lis.get(i).value;
+		}
+		return total;*/
+		var res = 0;
+		if (root==null)return 0;
+		if ((root.left==null&&root.right==null)||(root.right!=null&&root.left!=null)) res+=root.value;
+		if (root.left!=null){
+			BST bst = new BST();
+			bst.root=root.left;
+			res+=bst.sumEvenNodes();
+		}
+		if (root.right!=null){
+			BST bst = new BST();
+			bst.root=root.right;
+			res+=bst.sumEvenNodes();
+		}
+		return res;
 		//end your code
+	}
+
+	public void sumEvenHelper(ArrayList<Node> lis){
+		if (root==null)return;
+		if ((root.left==null && root.right==null)||(root.left!=null&&root.right!=null)) lis.add(root);
+
+		if (root.left!=null){
+			BST bst =new BST();
+			bst.root = root.left;
+			bst.sumEvenHelper(lis);
+		}
+		if (root.right!=null){
+			BST bst =new BST();
+			bst.root = root.right;
+			bst.sumEvenHelper(lis);
+		}
 	}
 
 	public class Node {

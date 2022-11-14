@@ -10,7 +10,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 public class Executor {
 
@@ -46,6 +49,7 @@ public class Executor {
 			f.delete();
 		}
 
+
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		try {
 
@@ -54,6 +58,18 @@ public class Executor {
 
 			// TODO
 			// ########## YOUR CODE STARTS HERE ##########
+
+			Element root_persons = doc.createElement("persons");
+			doc.appendChild(root_persons);
+
+			for (var person: persons){
+				var node = doc.createElement("person");
+				node.setAttribute("name",person.getName());
+				node.setAttribute("gender", person.getGender());
+				node.setAttribute("age",String.valueOf(person.getAge()));
+				node.setAttribute("occupation",person.getOccupation());
+				root_persons.appendChild(node);
+			}
 
 			// ########## YOUR CODE ENDS HERE ##########
 
@@ -94,11 +110,24 @@ public class Executor {
 		try {
 			db = dbf.newDocumentBuilder();
 			Document doc = db.parse(f);
-
 			doc.getDocumentElement().normalize();
 
 			// TODO
 			// ########## YOUR CODE STARTS HERE ##########
+
+			var nodeList  = doc.getElementsByTagName("person");
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				var node = nodeList.item(i);
+				if (node.getNodeType() == Node.ELEMENT_NODE){
+					Element element = (Element) node;
+					var name = element.getAttribute("name");
+					var gender  = element.getAttribute("gender");
+					var age = element.getAttribute("age");
+					var occupation = element.getAttribute("occupation");
+					Person person = new Person(name,gender,Integer.parseInt(age),occupation);
+					persons.add(person);
+				}
+			}
 
 			// ########## YOUR CODE ENDS HERE ##########
 

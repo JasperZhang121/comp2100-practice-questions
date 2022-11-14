@@ -35,11 +35,25 @@ public class ThreeColourTree<T extends Comparable<T>> {
 	 */
 	public Boolean testProp1() {
 		//START YOUR CODE
-		
-		return null;
-		
+		return helper1(root);
 		//END YOUR CODE
 	}
+
+	public boolean helper1(Node node){
+		var res = true;
+		if (node==null)return true;
+		if (node.colour==Colour.VIOLET)return false;
+		else {
+			if (node.left!=null){
+				res = helper1(node.left);
+			}
+			if (node.right!=null){
+				res = res && helper1(node.right);
+			}
+		}
+		return res;
+	}
+
 
 	/**
 	 * Implement this method to check the property2. You may define additional
@@ -49,11 +63,30 @@ public class ThreeColourTree<T extends Comparable<T>> {
 	 */
 	public Boolean testProp2() {
 		//START YOUR CODE
-		
-		return null;
+
+		if (root.colour!=Colour.PINK)return false;
+		return helper2(root);
 		
 		//END YOUR CODE
 	}
+
+	public boolean helper2(Node node){
+		var res = true;
+		if (node==null)return true;
+		if (node.left==null&&node.right==null){
+			if (node.colour!=Colour.PINK){
+				res = false;
+			}
+		}
+		if (node.left!=null){
+			res = res && helper2(node.left);
+		}
+		if (node.right!=null){
+			res = res && helper2(node.right);
+		}
+		return res;
+	}
+
 
 	/**
 	 * Implement this method to check the property3. You may define additional
@@ -63,10 +96,33 @@ public class ThreeColourTree<T extends Comparable<T>> {
 	 */
 	public Boolean testProp3() {
 		//START YOUR CODE
-		
-		return null;
+
+		ArrayList<Node<T>> nodes = new ArrayList<>();
+		nodes.add(root);
+
+		while (!nodes.isEmpty()){
+			var curNode = nodes.remove(nodes.size()-1); // always remove the last element in the list
+			if (curNode==null){
+				continue;								// if curNode == null, skip , which will end the loop
+			}
+			int lbh = pinkHeight(curNode.left);			// left black height of curNode
+			int rbh = pinkHeight(curNode.right);		// right black height of curNode
+			if (lbh!=rbh){
+				return false;							// if left balck height != right black height return false
+			}
+			nodes.add(curNode.left);					// repeat
+			nodes.add(curNode.right);					// repeat
+		}
+		return true;
 		
 		//END YOUR CODE
+	}
+
+	public int pinkHeight(Node node){
+		if (node==null)return 1;
+		int l = pinkHeight(node.left);
+		int r = pinkHeight(node.right);
+		return Math.max(l,r)+(node.colour==Colour.PINK ? 1:0);
 	}
 
 	/**
@@ -78,10 +134,27 @@ public class ThreeColourTree<T extends Comparable<T>> {
 	public Boolean testProp4() {
 		//START YOUR CODE
 		
-		return null;
+		return helper4(root);
 		
 		//END YOUR CODE
 	}
+
+	public boolean helper4(Node node){
+		var res = true;
+		if (node==null)return true;
+		if (node.colour == Colour.MAGENTA){
+			int count = 0;
+			if (node.left!=null && node.left.colour == Colour.MAGENTA) return false;
+			if (node.right!=null && node.right.colour == Colour.MAGENTA) return false;
+			if (node.left!=null && node.left.colour == Colour.PURPLE) count++;
+			if (node.right!=null && node.right.colour == Colour.PURPLE) count++;
+			if (count<1) return false;
+		}
+		if (node.left!=null) res = res && helper4(node.left);
+		if (node.right!=null) res = res && helper4(node.right);
+		return res;
+	}
+
 	
 	//HINT: testProp5() has been implemented.
 	public Boolean testProp5() {

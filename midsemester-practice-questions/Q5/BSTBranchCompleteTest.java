@@ -1,13 +1,9 @@
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
-
-import java.util.ArrayList;
-
+import static org.junit.Assert.assertEquals;
 /**
  * Fill in the items below with your UID and name:
- * @author:
- * @UID:
+ * @author: Hao Zhang
+ * @UID: u6523462
  */
 
 public class BSTBranchCompleteTest {
@@ -23,7 +19,9 @@ public class BSTBranchCompleteTest {
 		
 		// END YOUR CODE
 
-
+		assertEquals(205,bc.DNATreeCalc(209,207,-3));  // TTT
+		assertEquals(0,bc.DNATreeCalc(207,209,3)); 	// FFF
+		assertEquals(417,bc.DNATreeCalc(209,209,1)); 	// TFF
 
 	}
 }

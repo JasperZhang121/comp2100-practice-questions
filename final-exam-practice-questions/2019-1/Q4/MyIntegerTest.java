@@ -1,6 +1,10 @@
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
+
+import static org.junit.Assert.assertThrows;
+//import org.junit.jupiter.api.Test;
 
 class MyIntegerTest {
 
@@ -12,7 +16,14 @@ class MyIntegerTest {
 		// 
 		// All test cases should be included in this method. Do not create another method. 
 		// Auto grader will not check the other methods created individually.
-		
+
+
+
+
+
 	}
 
+/*	public static void main(String[] args) {
+		System.out.println((int)'a');
+	}*/
 }

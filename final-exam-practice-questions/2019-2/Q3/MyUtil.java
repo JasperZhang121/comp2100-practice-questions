@@ -9,7 +9,6 @@ public class MyUtil{
 	 * i.e. "abc123." => 123
 	 * 
 	 * 
-	 * @param text input text, may be null
 	 * @return {@code double} extracted from text
 	 */
 	public static double parseDouble(String text){

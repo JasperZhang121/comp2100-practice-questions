@@ -45,6 +45,12 @@ public class RBTree<T extends Comparable<T>> {
 		// get the maximum leve that can get by left and right recursion, whenever enconter balck node return value+=1
 	}
 
+	// another method
+	public boolean helper(Node node){
+		if (node==null)return true;
+		if (blackHeight(node.left)!=blackHeight(node.right))return false;
+		return helper(node.right)&&helper(node.left);
+	}
 
 	/**
 	 * Initialize empty RBTree

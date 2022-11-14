@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  *
  * You are given a java class called Something, which has a method called
@@ -20,6 +22,9 @@ public class SomethingTest {
 		// Implement your test cases
 		// START YOUR CODE
 
+		assertEquals(123,Something.someMethod(36,36,15,15));
+		assertEquals(118,Something.someMethod(36,36,10,10));
+		assertEquals(47,Something.someMethod(30,30,31,16));
 
 		// END YOUR CODE
 	}

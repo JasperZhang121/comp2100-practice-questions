@@ -17,8 +17,7 @@ public class ExceptionTest {
 	public void testNullKeyException() {
 		// TODO
 		// ########## YOUR CODE STARTS HERE ##########
-
-		
+		character.getState().handle(character,null);
 		// ########## YOUR CODE ENDS HERE ##########
 	}
 
@@ -26,8 +25,7 @@ public class ExceptionTest {
 	public void testNullCharacterException() {
 		// TODO
 		// ########## YOUR CODE STARTS HERE ##########
-
-		
+		character.getState().handle(null,Key.UP);
 		// ########## YOUR CODE ENDS HERE ##########
 	}
 }

@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public abstract class ExpressCompany implements ParcelHandler {
 
@@ -24,7 +25,9 @@ public abstract class ExpressCompany implements ParcelHandler {
 
 		// TODO
 		// ########## YOUR CODE STARTS HERE ##########
-
+		for(var item: parcel.getItems()){
+			if (illegalItems.contains(item)) throw new IllegalParcelItemException();
+		}
 		// ########## YOUR CODE ENDS HERE ##########
 	}
 
@@ -36,6 +39,9 @@ public abstract class ExpressCompany implements ParcelHandler {
 		// HINT: You can use the functions in Math library, e.g. Math.ceil(),
 		// Math.sqrt(), Math.pow()
 		// ########## YOUR CODE STARTS HERE ##########
+
+		var res = Math.sqrt(Math.pow((location.x-parcel.getDestination().x),2)+Math.pow(location.y-parcel.getDestination().y,2));
+		distance = (int)Math.ceil(res);
 
 		// ########## YOUR CODE ENDS HERE ##########
 

@@ -42,7 +42,7 @@ public class ParserTest {
 		c.setCity("Sydney");
 		c.setPostCode("2000");
 		c.setCountry("Australia");
-		
+
 		assertEquals(newcustomers.size(), 1);
 		assertEquals(newcustomers.get(0), c);
 	}

@@ -1,13 +1,20 @@
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 public class ExecutorTest {
 
@@ -52,18 +59,52 @@ public class ExecutorTest {
 	 * 
 	 */
 	@Test(timeout=1000)
-	public void testSave() {
+	public void testSave()  {
 		execute("SAVE persons TO persons.xml;");
 
 		File f = new File("persons.xml");
+
+
+		//
+		try {
+
+
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(f);
+			doc.getDocumentElement().normalize();
+			System.out.println("Root element : " + doc.getDocumentElement().getNodeName());
+			NodeList nList = doc.getElementsByTagName("person");
+			Node child = nList.item(0);
+			NodeList nL = child.getChildNodes();
+			System.out.println("----------------------------");
+			int i = 1;
+			for (int temp = 0; temp < nL.getLength(); temp++) {
+				Node nNode = nL.item(temp);
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					System.out.println(i + "," + eElement.getAttribute("name") + "," + eElement.getAttribute("score"));
+					System.out.println("check");
+					i++;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		//
+
+
 		assertTrue(f.exists());
 	}
 
 	@Test(timeout=1000)
-	public void testSaveLoad() {
+	public void testSaveLoad(){
 		execute("SAVE persons TO persons.xml;LOAD persons FROM persons.xml;");
 
 		File f = new File("persons.xml");
+
+
 		assertTrue(f.exists());
 
 		List<Person> loadedPersons = this.db.load("persons");
@@ -80,6 +121,7 @@ public class ExecutorTest {
 
 		List<Person> loadedPersons = this.db.load("persons");
 
+
 		assertTrue(personsCompare(this.persons, loadedPersons));
 	}
 
@@ -89,6 +131,7 @@ public class ExecutorTest {
 		Executor executor = new Executor(parser.parseCmds());
 
 		executor.execute();
+
 	}
 
 	private boolean personsCompare(List<Person> p1, List<Person> p2) {

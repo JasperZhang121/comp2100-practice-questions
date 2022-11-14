@@ -23,13 +23,40 @@ public class Tokenizer {
         
         if (_buffer.startsWith(Token.Type.RIGHT.toString())) 
             return new Token(Token.Type.RIGHT);
-        
+
         // TODO: Implement "FORWARD" and "BACK" tokenization.
         // hints:
         // - Character.isDigit() may be useful in extracting the forward or back value from the buffer.
         // - Use new Token(<type>, <original token str>, <value>) to return these tokens
 
         // TODO: Implement "PENUP" and "PENDOWN" tokenization.
+
+        // Forward(int)
+        if (_buffer.startsWith((Token.Type.FORWARD.toString()))){
+            String s = "";
+            String origin = "";
+            for (int i = 0; i < _buffer.length(); i++) {
+                if (_buffer.charAt(i)==COMMAND_SEPARATOR) break;
+                if (Character.isDigit(_buffer.charAt(i))) s+=_buffer.charAt(i);
+                if (_buffer.charAt(i)!=COMMAND_SEPARATOR) origin+=_buffer.charAt(i);
+            }
+            return new Token(Token.Type.FORWARD,origin,Integer.parseInt(s));
+        }
+        // back(int)
+        if (_buffer.startsWith(Token.Type.BACK.toString())){
+            String s = "";
+            String origin = "";
+            for (int i = 0; i < _buffer.length(); i++) {
+                if (_buffer.charAt(i)==COMMAND_SEPARATOR) break;
+                if (Character.isDigit(_buffer.charAt(i))) s+=_buffer.charAt(i);
+                if (_buffer.charAt(i)!=COMMAND_SEPARATOR) origin+=_buffer.charAt(i);
+            }
+            return new Token(Token.Type.BACK,origin,Integer.parseInt(s));
+        }
+        // PenUp
+        if (_buffer.startsWith(Token.Type.PENUP.toString())) return new Token(Token.Type.PENUP);
+        // PenDown
+        if (_buffer.startsWith(Token.Type.PENDOWN.toString())) return new Token(Token.Type.PENDOWN);
 
         return null;
     }
@@ -40,7 +67,17 @@ public class Tokenizer {
      */
     public Token takeNext() {
         // TODO: Add your implementation here.
-        return null;
+
+        var res = this.next();
+        int count = 0;
+        for (int i = 0; i < _buffer.length(); i++) {
+            if (_buffer.charAt(i)==COMMAND_SEPARATOR){
+                count = i;
+                break;
+            }
+        }
+        _buffer = _buffer.substring(count+1);
+        return res;
     }
 
     /**
@@ -48,6 +85,8 @@ public class Tokenizer {
      */
     public boolean hasNext() {
         // TODO: Add your implementation here.
+
+        if (_buffer.length()!=0)return  true;
         return false;
     }
    

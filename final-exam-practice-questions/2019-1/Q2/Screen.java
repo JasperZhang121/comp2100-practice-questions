@@ -50,7 +50,26 @@ public class Screen {
 	public String trace() {
 		// TODO: Add your implementation here.
 		// hints: append "\n" to create a new line in string
-		return "";
+
+		var pos = this.pointer.position;
+		var icon = getPointerIcon();
+		var res = "";
+		for (int i = 0; i < noOfRows; i++) {
+			for (int j = 0; j < noOfColumns; j++) {
+
+				if (i == pos.x && j == pos.y){
+					res+=icon;
+				}
+				else if (trace[i][j] == VISITED_MARK){
+					res+=VISITED_MARK;
+				}
+				else {
+					res+=NON_VISITED_MARK;
+				}
+			}
+			res+="\n";
+		}
+		return res;
 	}
 	
 	private String getPointerIcon() {

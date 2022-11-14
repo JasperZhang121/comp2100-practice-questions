@@ -1,0 +1,43 @@
+Q1.
+It does not use any design pattern, we can try to apply the facade to make the design more concise and easier to maintain
+in the future.
+
+It does not set the exception catch, for example, if the calculator with input a = 1, b =0. By the design of this calculator,
+it will directly stop running and showing error.
+
+There are methods are not used in the class, for example getA() and getB() in class Add are not used. If we are not using
+those methods at all, we should remove them.
+
+The return value of the calculator is always integer, which is not very realistic as there will very likely to be some
+double type value. Probably, should change the return value to double for improving the accuracy.
+
+There can be more docstring, comments, author names inside each class or methods.
+
+Q2.
+Using the facade design pattern would be better for the calculator to extend more functionalities.
+For example, we can add a feature for calculating log(a,b). The original code needs to make a class called Log, and make
+the return method calculate(), and add the another input in the constructor Client && add another if-statement in the
+compute() method. This makes the constructor so long and not easy to maintain when more inputs.
+So, we can use a Facade design pattern without implementing the constructor but adding calculating methods inside the Class
+Client. For example:
+                    public class Calculator {
+                    	public double add(double a, double b) {
+                    		Add add = new Add(a,b);
+                    		return add.evaluate();
+                    	}
+
+                    	public double multiply(double a, double b) {
+
+                    		Multiply multiply = new Multiply(a,b);
+                    		return multiply.evaluate();
+                    	}
+
+                    	public double divide(double a, double b) {
+
+                    		Divide divide = new Divide(a,b);
+                    		return divide.evaluate();
+                    	}
+                    }
+
+Q3.
+Authors name can be added for each method or class.

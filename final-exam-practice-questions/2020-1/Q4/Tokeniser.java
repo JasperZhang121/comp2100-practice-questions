@@ -41,8 +41,40 @@ public class Tokeniser {
 		// TODO: Complete this method
 		// START YOUR CODE
 
-	
-		
+		var temp = "";
+		if (_buffer.length()>=6){
+			temp = _buffer.substring(0,6);
+			if (temp.equals("VALUES")){
+				temp="";
+				for (int i = 0; i < _buffer.length(); i++) {
+					if (_buffer.charAt(i)==')'){
+						temp+=')';
+
+						//System.out.println(temp.substring(7));
+
+						return new Token(Token.Type.VALUES,temp.substring(7),_buffer.substring(0,i+1));
+					}else {
+						temp+=_buffer.charAt(i);
+					}
+				}
+			}
+		}
+		if (_buffer.length()>=11){
+			temp = _buffer.substring(0,11);
+			if (temp.equals("INSERT INTO")){
+				temp="";
+				for (int i = 0; i < _buffer.length(); i++) {
+					if (_buffer.charAt(i)==')'){
+						temp+=')';
+						//System.out.println(temp.substring(12));
+						return new Token(Token.Type.INSERT_INTO,temp.substring(12),_buffer.substring(0,i+1));
+					} else {
+						temp+=_buffer.charAt(i);
+					}
+				}
+			}
+		}
+
 		// You are allowed to remove the following 'return null' if necessary
 		return null;
 		

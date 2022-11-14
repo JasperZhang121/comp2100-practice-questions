@@ -53,6 +53,6 @@ public class Screen {
 		// Hints: append "\n" to create a new line in string
 		//       Note that {@link ScreenTest} doesn't require complete implementation of parser.
 		//       Check the expected outcome in ScreenTest.java
-
+		return null;
 	}
 }

@@ -28,7 +28,104 @@ public class Parser {
     	//        there is any methods/functions you can take advantage of.
     	//        Check the expected outcome in ParserTest.java
     	//        You can make additional methods if needed
-    	
-		
+
+		while (_tokenizer.hasNext()){
+			var temp = _tokenizer.current();
+			if (temp.type== Token.Type.PENDOWN) _screen.pointer.isPenDown = true;
+			if (temp.type == Token.Type.PENUP) _screen.pointer.isPenDown = false;
+			if (temp.type == Token.Type.LEFT) _screen.pointer.turnLeft();
+			if (temp.type == Token.Type.RIGHT) _screen.pointer.turnRight();
+			var pos = _screen.pointer.position;
+// if token is forward (consider directions)
+			if (temp.type == Token.Type.FORWARD){
+				var steps = temp.value;
+				if (_screen.pointer.isPenDown) _screen.markVisistedPos(_screen.pointer.position);
+				// if point upward
+				if (_screen.pointer.direction==Direction.NORTH){
+					// mark visited
+					if (_screen.pointer.isPenDown){for (int i = 0; i < steps+1; i++) {
+						_screen.markVisistedPos(new Position(pos.x-i,pos.y));
+					}}
+					// reset pointer position
+					_screen.pointer.position.x-=steps;
+				}
+				// if point downward
+				if (_screen.pointer.direction==Direction.SOUTH){
+					if (_screen.pointer.isPenDown){
+						for (int i = 0; i < steps+1; i++) {
+							_screen.markVisistedPos(new Position(pos.x+i,pos.y));
+						}
+					}
+
+					// reset pointer position
+					_screen.pointer.position.x+=steps;
+				}
+				if (_screen.pointer.direction == Direction.WEST){
+					if (_screen.pointer.isPenDown){
+						for (int i = 0; i < steps+1; i++) {
+							_screen.markVisistedPos(new Position(pos.x,pos.y-i));
+						}
+					}
+					// reset pointer position
+					_screen.pointer.position.y-=steps;
+				}
+				if (_screen.pointer.direction == Direction.EAST){
+					if (_screen.pointer.isPenDown){
+						for (int i = 0; i < steps+1; i++) {
+							_screen.markVisistedPos(new Position(pos.x,pos.y+i));
+						}
+					}
+					// reset pointer position
+					_screen.pointer.position.y+=steps;
+				}
+			}
+			// token is back (copy part of above)
+			if (temp.type== Token.Type.BACK) {
+				var steps = temp.value;
+				if (_screen.pointer.isPenDown) _screen.markVisistedPos(_screen.pointer.position);
+				// if point downward
+				if (_screen.pointer.direction == Direction.NORTH) {
+					// mark visited
+					if (_screen.pointer.isPenDown){
+						for (int i = 0; i < steps+1; i++) {
+							_screen.markVisistedPos(new Position(pos.x+i, pos.y));
+						}
+					}
+					// reset pointer position
+					_screen.pointer.position.x += steps;
+				}
+				// if point downward
+				if (_screen.pointer.direction == Direction.SOUTH) {
+					if (_screen.pointer.isPenDown){
+						for (int i = 0; i < steps+1; i++) {
+							_screen.markVisistedPos(new Position(pos.x-i, pos.y));
+						}
+					}
+					// reset pointer position
+					_screen.pointer.position.x -= steps;
+				}
+				if (_screen.pointer.direction == Direction.WEST) {
+					if (_screen.pointer.isPenDown){
+						for (int i = 0; i < steps+1; i++) {
+							_screen.markVisistedPos(new Position(pos.x, pos.y-i));
+						}
+					}
+					// reset pointer position
+					_screen.pointer.position.y -= steps;
+				}
+				if (_screen.pointer.direction == Direction.EAST) {
+					if (_screen.pointer.isPenDown){
+						for (int i = 0; i < steps+1; i++) {
+							_screen.markVisistedPos(new Position(pos.x, pos.y+i));
+						}
+					}
+					// reset pointer position
+					_screen.pointer.position.y += steps;
+				}
+			}
+
+			_tokenizer.next();
+		}
+		return _screen;
 	}
 }

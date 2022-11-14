@@ -30,6 +30,7 @@ public class Task1Test {
 	public void testFindTrueSimple() {
 		assertTrue(simpleBst.find(1));
 		assertTrue(simpleBst.find(8));
+
 	}
 	
 	@Test
@@ -42,6 +43,14 @@ public class Task1Test {
 	public void testFindTrueComplex() {
 		assertTrue(complexBst.find(10));
 		assertTrue(complexBst.find(4));
+// additional test adding by jasper
+		assertTrue(complexBst.find(7));
+		assertTrue(complexBst.find(8));
+
+		assertTrue(complexBst.find(11));
+
+
+		assertFalse(complexBst.find(100));
 	}
 
 	@Test

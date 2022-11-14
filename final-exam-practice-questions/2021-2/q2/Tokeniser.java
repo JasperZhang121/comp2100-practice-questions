@@ -22,6 +22,38 @@ public class Tokeniser {
 
 		// ########## YOUR CODE STARTS HERE ##########
 
+
+		if (buffer.charAt(0)==';'){
+			currentToken = new Token(Token.Type.TERMINATOR, ";");
+			buffer = buffer.substring(1);
+			return;
+		}
+
+		var index  = 0;
+		for (int i = 0; i < buffer.length(); i++) {
+			if (buffer.charAt(i)==' ' || buffer.charAt(i)==';'){
+				index = i;
+				break;
+			}
+		}
+		var temp = buffer.substring(0,index);
+		if (temp.equalsIgnoreCase("save")){
+			currentToken = new Token(Token.Type.SAVE,temp);
+		}
+		else if (temp.equalsIgnoreCase("load")){
+			currentToken = new Token(Token.Type.LOAD,temp);
+		}
+		else if (temp.equalsIgnoreCase("to")){
+			currentToken = new Token(Token.Type.TO,temp);
+		}
+		else if (temp.equalsIgnoreCase("from")){
+			currentToken = new Token(Token.Type.FROM,temp);
+		}
+		else{
+			currentToken = new Token(Token.Type.PARAMETER,temp);
+		}
+
+
 		// ########## YOUR CODE ENDS HERE ##########
 
 		// Remove the extracted token from buffer

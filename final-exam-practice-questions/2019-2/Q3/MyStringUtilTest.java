@@ -13,8 +13,12 @@ public class MyStringUtilTest {
 	@Test
 	public void test() {
 		//start your code
-		
-		
+		assertFalse(MyStringUtil.isMixedCase(null));
+		assertFalse(MyStringUtil.isMixedCase(""));
+		assertTrue(MyStringUtil.isMixedCase("Aaa"));
+		assertFalse(MyStringUtil.isMixedCase("AA"));
+
+
 		
 		//end your code
 	}

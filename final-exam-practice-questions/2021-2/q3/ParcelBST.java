@@ -1,9 +1,6 @@
 import parcel.Parcel;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class ParcelBST extends BinarySearchTree<Parcel> implements Iterable<Parcel>  {
 
@@ -38,16 +35,21 @@ public class ParcelBST extends BinarySearchTree<Parcel> implements Iterable<Parc
 
         // You may add methods and variables here if you wish
 
+        Deque<Tree> stack;
+
         public IteratorPreOrder() {
             // You may add code here if you wish
+            stack = new ArrayDeque<>();
+
+            stack.push(ParcelBST.this);
+
         }
 
         @Override
         public boolean hasNext() {
             // TODO
             // START YOUR CODE
-
-            return false;
+            return !stack.isEmpty();
             // END YOUR CODE
         }
         @Override
@@ -55,7 +57,12 @@ public class ParcelBST extends BinarySearchTree<Parcel> implements Iterable<Parc
             // TODO
             // START YOUR CODE
 
-            return null;
+            var node = stack.pop();
+
+            if (!node.rightNode.isEmpty()) stack.push(node.rightNode);
+            if (!node.leftNode.isEmpty()) stack.push(node.leftNode);
+
+            return (Parcel) node.value;
             // END YOUR CODE
         }
     }

@@ -48,11 +48,10 @@ public class RBTree<T extends Comparable<T>> {
 		if (root==null){
 			return true;
 		}else {
-			if (root.colour==Colour.RED){
-				return root.parent.colour==Colour.BLACK && checkParent(root.right)&&checkParent(root.left);
-			}else {
-				return checkParent(root.right)&&checkParent(root.left);
+			if (root.colour==Colour.RED && root.parent.colour!=Colour.BLACK){
+				return false;
 			}
+			return checkParent(root.right)&&checkParent(root.left);
 		}
 	}
 

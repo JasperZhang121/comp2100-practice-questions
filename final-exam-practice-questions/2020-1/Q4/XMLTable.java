@@ -1,17 +1,23 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 /**
  * IMPORTANT: This class is incomplete. Please look for "TODO" comments.
@@ -116,7 +122,59 @@ public class XMLTable {
 		// TODO: Complete this method
 		// START YOUR CODE
 
-		
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db;
+
+		try {
+			db = dbf.newDocumentBuilder();
+			Document doc = db.parse(f);
+			Element root = doc.getDocumentElement();
+
+			var nodeList = root.getElementsByTagName(Customer.KEY_ELEMENT);
+			List<Element> customerNodes = new ArrayList<>();
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				org.w3c.dom.Node node = nodeList.item(i);
+				if (node.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE){
+					Element element = (Element) node;
+					customerNodes.add(element);
+				}
+			}
+			for (var customerNode: customerNodes){
+				String id = null;
+				String name = null;
+				String address = null;
+				String city = null;
+				String postCode = null;
+				String country = null;
+
+				if (customerNode.getElementsByTagName(Customer.KEY_ID).item(0)!=null){
+					id = customerNode.getElementsByTagName(Customer.KEY_ID).item(0).getTextContent();
+				}
+				if (customerNode.getElementsByTagName(Customer.KEY_NAME).item(0)!=null){
+					name = customerNode.getElementsByTagName(Customer.KEY_NAME).item(0).getTextContent();
+				}
+				if (customerNode.getElementsByTagName(Customer.KEY_ADDRESS).item(0)!=null){
+					address=customerNode.getElementsByTagName(Customer.KEY_ADDRESS).item(0).getTextContent();
+				}
+				if (customerNode.getElementsByTagName(Customer.KEY_CITY).item(0)!=null){
+					city = customerNode.getElementsByTagName(Customer.KEY_CITY).item(0).getTextContent();
+				}
+				if (customerNode.getElementsByTagName(Customer.KEY_POSTCODE).item(0)!=null){
+					postCode = customerNode.getElementsByTagName(Customer.KEY_POSTCODE).item(0).getTextContent();
+				}
+				if (customerNode.getElementsByTagName(Customer.KEY_COUNTRY).item(0)!=null){
+					country = customerNode.getElementsByTagName(Customer.KEY_COUNTRY).item(0).getTextContent();
+				}
+
+				Customer customer = new Customer(Integer.parseInt(id),name,address,city,postCode,country);
+				customers.add(customer);
+			}
+
+
+		} catch (ParserConfigurationException | IOException | SAXException e) {
+			e.printStackTrace();
+		}
+
 
 		// END YOUR CODE
 
@@ -134,9 +192,11 @@ public class XMLTable {
 		// START YOU CODE
 		// HINT: insert the given customer to the XML file.
 		// You can call the load() and save() methods
-		
 
-		
+		var lis = load(tableName);
+		lis.add(customer);
+		save(tableName,lis);
+
 		// END YOUR CODE
 	}
 }

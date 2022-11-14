@@ -41,7 +41,63 @@ public class Tokenizer {
         // - Use new Token(<type>, <original token str>, <value>) to return these tokens
         // - Check the expected outcome in TokenizerTest.java
 
- 
+        _buffer = _buffer.trim();
+
+        var originalStr = "";
+        var value = "";
+
+
+        if (_buffer.startsWith(Token.Type.FORWARD_TO_END.toString())){
+            current = new Token(Token.Type.FORWARD_TO_END);
+            _buffer = _buffer.substring(current.originalTokenStr.length()+1);
+            return;
+        }
+        if (_buffer.startsWith(Token.Type.BACK_TO_END.toString())){
+            current = new Token(Token.Type.BACK_TO_END);
+            _buffer = _buffer.substring(current.originalTokenStr.length()+1);
+            return;
+        }
+
+        if (_buffer.startsWith(Token.Type.FORWARD.toString())){
+            for (int i = 0; i < _buffer.length(); i++) {
+                if (_buffer.charAt(i)==';'){
+                    //originalStr+=_buffer.charAt(i);
+                    break;
+                }
+                else {
+                    if (Character.isDigit(_buffer.charAt(i))){
+                        value+=_buffer.charAt(i);
+                    }
+                    originalStr+=_buffer.charAt(i);
+                }
+            }
+            current = new Token(Token.Type.FORWARD,originalStr,Integer.parseInt(value));
+        }
+
+        if (_buffer.startsWith(Token.Type.BACK.toString())){
+            for (int i = 0; i < _buffer.length(); i++) {
+                if (_buffer.charAt(i)==';'){
+                    //originalStr+=_buffer.charAt(i);
+                    break;
+                }
+                else {
+                    if (Character.isDigit(_buffer.charAt(i))){
+                        value+=_buffer.charAt(i);
+                    }
+                    originalStr+=_buffer.charAt(i);
+                }
+            }
+            current = new Token(Token.Type.BACK,originalStr,Integer.parseInt(value));
+        }
+
+        if (_buffer.startsWith(Token.Type.PENUP.toString())){
+            current = new Token(Token.Type.PENUP);
+        }
+        if (_buffer.startsWith(Token.Type.PENDOWN.toString())){
+            current = new Token(Token.Type.PENDOWN);
+        }
+
+        _buffer = _buffer.substring(current.originalTokenStr.length()+1);
     }
     
 

@@ -42,6 +42,19 @@ public class BST {
 		// TODO
 		// ########## YOUR CODE STARTS HERE ##########
 
+		var current = this.root;
+
+		while (current!=null){
+			if (current.key.compareTo(key)<0){
+				current = current.right;
+			}
+			else if (current.key.compareTo(key)>0){
+				current = current.left;
+			}
+			else if (current.key.equals(key)){
+				return current;
+			}
+		}
 		// ########## YOUR CODE ENDS HERE ##########
 
 		return node;
@@ -53,6 +66,16 @@ public class BST {
 
 		// TODO
 		// ########## YOUR CODE STARTS HERE ##########
+
+		var temp = this.root;
+		if (root!=null){
+			list.add(root);
+			root = root.right;
+			list.addAll(invertedPreOrder());
+			root = temp;
+			root =root.left;
+			list.addAll(invertedPreOrder());
+		}
 
 		// ########## YOUR CODE ENDS HERE ##########
 

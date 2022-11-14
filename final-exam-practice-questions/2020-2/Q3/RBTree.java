@@ -281,13 +281,29 @@ public class RBTree<K extends Comparable<K>, T> {
 	public List<Node> levelTraversal() {
 
 		List<Node> ret = new LinkedList<>();
-
 		// ########## YOUR CODE STARTS HERE ##########
-		
-
-
+		helper(root,ret);
 		// ########## YOUR CODE ENDS HERE ##########
 
 		return ret;
 	}
+
+	public static void helper(Node startNode, List<Node> lis ){
+		Queue<Node> queue=new LinkedList<Node>();
+		queue.add(startNode);
+		while(!queue.isEmpty())
+		{
+			Node tempNode=queue.poll();
+			if (tempNode.key!=null){
+				lis.add(tempNode);
+			}
+
+			if(tempNode.right!=null)
+				queue.add(tempNode.right);
+			if(tempNode.left!=null)
+				queue.add(tempNode.left);
+		}
+	}
+
+
 }
