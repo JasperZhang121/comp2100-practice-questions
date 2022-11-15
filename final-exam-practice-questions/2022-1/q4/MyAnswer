@@ -13,6 +13,9 @@ double type value. Probably, should change the return value to double for improv
 
 There can be more docstring, comments, author names inside each class or methods.
 
+If there is any code copy from the third party from others, should make sure whether it's free
+or we can get the licence as an official permission to use others ideas or codes.
+
 Q2.
 Using the facade design pattern would be better for the calculator to extend more functionalities.
 For example, we can add a feature for calculating log(a,b). The original code needs to make a class called Log, and make
