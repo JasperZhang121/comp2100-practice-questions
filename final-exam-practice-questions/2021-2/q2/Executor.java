@@ -59,7 +59,7 @@ public class Executor {
 			// TODO
 			// ########## YOUR CODE STARTS HERE ##########
 
-			Element root_persons = doc.createElement("persons");
+			/*Element root_persons = doc.createElement("persons");
 			doc.appendChild(root_persons);
 
 			for (var person: persons){
@@ -69,6 +69,37 @@ public class Executor {
 				node.setAttribute("age",String.valueOf(person.getAge()));
 				node.setAttribute("occupation",person.getOccupation());
 				root_persons.appendChild(node);
+			}*/
+
+			Element root = doc.createElement("persons");
+			doc.appendChild(root);
+
+			for (var person: persons){
+
+				var sub = doc.createElement("person");
+
+
+				var name = doc.createElement("name");
+				var nameText = doc.createTextNode(person.getName());
+				name.appendChild(nameText);
+
+				var gender = doc.createElement("gender");
+				var genderText = doc.createTextNode(person.getGender());
+				gender.appendChild(genderText);
+
+				var age = doc.createElement("age");
+				var ageText = doc.createTextNode(String.valueOf(person.getAge()));
+				age.appendChild(ageText);
+
+				var occupation = doc.createElement("occupation");
+				var occupationText = doc.createTextNode(String.valueOf(person.getOccupation()));
+				occupation.appendChild(occupationText);
+
+				sub.appendChild(name);
+				sub.appendChild(gender);
+				sub.appendChild(age);
+				sub.appendChild(occupation);
+				root.appendChild(sub);
 			}
 
 			// ########## YOUR CODE ENDS HERE ##########
@@ -115,7 +146,7 @@ public class Executor {
 			// TODO
 			// ########## YOUR CODE STARTS HERE ##########
 
-			var nodeList  = doc.getElementsByTagName("person");
+			/*var nodeList  = doc.getElementsByTagName("person");
 			for (int i = 0; i < nodeList.getLength(); i++) {
 				var node = nodeList.item(i);
 				if (node.getNodeType() == Node.ELEMENT_NODE){
@@ -125,6 +156,29 @@ public class Executor {
 					var age = element.getAttribute("age");
 					var occupation = element.getAttribute("occupation");
 					Person person = new Person(name,gender,Integer.parseInt(age),occupation);
+					persons.add(person);
+				}
+			}*/
+
+			var nl = doc.getElementsByTagName("person");
+			for (int i = 0; i < nl.getLength(); i++) {
+
+				var n = nl.item(i);
+				if (n.getNodeType() == Node.ELEMENT_NODE){
+					Element sub = (Element) n;
+
+					var nodes = sub.getChildNodes();
+					String name = "";
+					String gender="";
+					int age = 0;
+					String occupation ="";
+
+					name = nodes.item(0).getTextContent();
+					gender = nodes.item(1).getTextContent();
+					age = Integer.parseInt(nodes.item(2).getTextContent());
+					occupation = nodes.item(3).getTextContent();
+
+					Person person = new Person(name,gender,age,occupation);
 					persons.add(person);
 				}
 			}
