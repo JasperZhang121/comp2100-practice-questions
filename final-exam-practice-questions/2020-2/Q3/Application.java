@@ -95,25 +95,25 @@ public class Application {
 				Element id = doc.createElement("id");
 				Text idValue = doc.createTextNode(String.valueOf(p.id));
 				id.appendChild(idValue);
-				id.appendChild(idValue);
+				//id.appendChild(idValue);
 
 				// name
 				Element name = doc.createElement("name");
 				Text nameValue = doc.createTextNode(p.name);
 				name.appendChild(nameValue);
-				name.appendChild(nameValue);
+				//name.appendChild(nameValue);
 
 				// age
 				Element age = doc.createElement("age");
 				Text ageValue = doc.createTextNode(String.valueOf(p.age));
 				age.appendChild(ageValue);
-				age.appendChild(ageValue);
+				//age.appendChild(ageValue);
 
 				// occupation
 				Element occupation = doc.createElement("occupation");
 				Text occupationValue = doc.createTextNode(p.occupation);
 				occupation.appendChild(occupationValue);
-				occupation.appendChild(occupationValue);
+				//occupation.appendChild(occupationValue);
 
 				person.appendChild(id);
 				person.appendChild(name);

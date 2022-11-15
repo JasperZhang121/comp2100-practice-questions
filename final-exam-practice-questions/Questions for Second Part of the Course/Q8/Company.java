@@ -1,7 +1,8 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +38,12 @@ public class Company {
 	public static Company loadFromJsonFile(File file) {
 
 		// START YOUR CODE
-
-
-
+		Gson gson = new Gson();
+		try(JsonReader js = new JsonReader(new FileReader(file))) {
+			return gson.fromJson(js,Company.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		// END YOUR CODE
 
 		return null;
@@ -52,7 +56,21 @@ public class Company {
 	public void serializeToFile(File file) {
 
 		// START YOUR CODE
+		FileOutputStream f = null;
+		try {
+			f = new FileOutputStream(file);
+			ObjectOutputStream o = new ObjectOutputStream(f);
+			o.writeObject(this.name);
+			o.writeInt(this.employees.size());
+			for (Employee employee : employees) {
+				o.writeObject(employee);
+			}
+			o.close();
+			f.close();
 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 
 		// END YOUR CODE
@@ -85,7 +103,12 @@ public class Company {
 	public void saveToJsonFile(File file) {
 
 		// START YOUR CODE
-
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		try (FileWriter writer = new FileWriter(file)) {
+			gson.toJson(this, writer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 
 		// END YOUR CODE

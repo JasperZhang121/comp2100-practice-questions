@@ -1,4 +1,11 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
+
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -33,7 +40,12 @@ public class Company {
 
 		// START YOUR CODE
 
-
+		Gson gson = new Gson();
+		try(JsonReader jsonReader = new JsonReader(new FileReader(file))){
+			return gson.fromJson(jsonReader,Company.class);
+		}catch (Exception e){
+			e.printStackTrace();;
+		}
 
 		// END YOUR CODE
 
@@ -62,9 +74,12 @@ public class Company {
 	public void saveToJsonFile(File file) {
 
 		// START YOUR CODE
-
-
-
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		try (FileWriter writer = new FileWriter(file)) {
+			gson.toJson(this, writer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		// END YOUR CODE
 	}
 

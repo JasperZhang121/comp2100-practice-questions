@@ -12,6 +12,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 public class XMLProcessor {
 
@@ -36,9 +38,25 @@ public class XMLProcessor {
 			// HINT: You can use getChildNodes() function in the XML library to obtain a
 			// list of child nodes of the parent tag STATE_ROOT_ELEMENT.
 
-			var res = new ArrayList<List<String>>();
-			var nodeList = doc.getChildNodes();
 
+			List<List<String>> res = new ArrayList<>() ;
+			var keys = new ArrayList<String>();
+			var states = new ArrayList<String>();
+
+			Element root = doc.getDocumentElement();
+			var nl = root.getChildNodes();
+
+			for (int i = 0; i < nl.getLength(); i++) {
+				var n = nl.item(i);
+
+				if (n.getNodeType()== Node.ELEMENT_NODE){
+					states.add(n.getNodeName());
+					keys.add(n.getTextContent());
+				}
+			}
+			res.add(states);
+			res.add(keys);
+			return res;
 
 
 			// ########## YOUR CODE ENDS HERE ##########

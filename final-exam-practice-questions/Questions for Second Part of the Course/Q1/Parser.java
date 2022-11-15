@@ -27,10 +27,17 @@ public class Parser {
         // TODO: Complete this method
 		// START YOUR CODE
 
+		var count_l = 0;
+		var count_r = 0;
 
-
+		while(_tokeniser.hasNext()){
+			var curr = _tokeniser.takeNext();
+			if (curr.type.equals(Token.Type.LEFT_BRACKET)) count_l+=1;
+			else if (curr.type.equals(Token.Type.RIGHT_BRACKET)) count_r+=1;
+			else return false;
+		}
 		// END YOUR CODE
-		return false;
+		return count_l==count_r;
     }
 
 }

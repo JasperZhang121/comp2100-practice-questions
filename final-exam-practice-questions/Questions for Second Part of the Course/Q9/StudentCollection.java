@@ -1,4 +1,22 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +55,46 @@ public class StudentCollection {
 	 */
 	public void saveToFile(File file) {
 		//START YOUR CODE
-		
+
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = null;
+		try {
+			db = dbf.newDocumentBuilder();
+			Document doc = db.newDocument();
+			var root = doc.createElement("Students");
+			doc.appendChild(root);
+			for (var student : students) {
+				var sub = doc.createElement("student");
+				sub.setAttribute("age",String.valueOf(student.getAge()));
+				sub.setAttribute("name",student.getName());
+				if (student.getHeight()!=null){
+					sub.setAttribute("Height",String.valueOf(student.getHeight()));
+				}
+				if (student.getWeight()!=null){
+					sub.setAttribute("Weight",String.valueOf(student.getWeight()));
+				}
+				if (student.getCourses()!=null){
+					StringBuilder temp = new StringBuilder();
+					for (int i = 0; i < student.getCourses().size(); i++) {
+						temp.append(student.getCourses().get(i).getName()).append(" ");
+						temp.append(student.getCourses().get(i).getGrade().toString()).append(" ");
+					}
+					sub.setAttribute("Course",temp.toString());
+				}
+				root.appendChild(sub);
+			}
+			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			transformer.setOutputProperty(OutputKeys.ENCODING, "utf-8");
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(file);
+			transformer.transform(source, result);
+
+		} catch (ParserConfigurationException | TransformerException e) {
+			e.printStackTrace();
+		}
+
+
 		//END YOUR CODE
 	}
 
@@ -49,7 +106,50 @@ public class StudentCollection {
 	 */
 	public static StudentCollection loadFromFile(File file) {
 		//START YOUR CODE
-		
+		var res = new ArrayList<Student>();
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = null;
+		try {
+			db = dbf.newDocumentBuilder();
+			Document doc = db.parse(file);
+			doc.getDocumentElement().normalize();
+			var nl = doc.getElementsByTagName("student");
+			for (int i = 0; i < nl.getLength(); i++) {
+				var n = (Element) nl.item(i);
+				if (n.getNodeType() == Node.ELEMENT_NODE){
+					String age = n.getAttribute("age");
+					String name = n.getAttribute("name");
+					Integer height = null;
+					if (!n.getAttribute("Height").equals("")){
+						height = Integer.parseInt(n.getAttribute("Height"));
+					}
+					Integer weight = null;
+					if (!n.getAttribute("Weight").equals("")){
+						weight = Integer.parseInt(n.getAttribute("Weight"));
+					}
+					var courses = new ArrayList<Course>();
+					String [] each = null;
+					if (!n.getAttribute("Course").equals("")){
+						each = n.getAttribute("Course").split(" ");
+						for (int j = 0; j < each.length; j+=2) {
+							var courseName = each[j];
+							var courseGrade = Integer.parseInt(each[j+1]);
+							Course course = new Course(courseName,courseGrade);
+							courses.add(course);
+						}
+					}
+					Student student = new Student();
+					student.withAge(Integer.parseInt(age)).withName(name).withHeight(height).withWeight(weight);
+					for (var course: courses){
+						student.addCourse(course);
+					}
+					res.add(student);
+				}
+			}
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			e.printStackTrace();
+		}
+		return new StudentCollection(res);
 		//END YOUR CODE
 	}
 

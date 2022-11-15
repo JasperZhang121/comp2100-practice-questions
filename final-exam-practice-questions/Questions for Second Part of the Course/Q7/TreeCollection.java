@@ -1,4 +1,18 @@
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.Text;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,8 +52,45 @@ public class TreeCollection {
 	 */
 	public void saveToFile(File file) {
 		//START YOUT CODE
-		
-		
+
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = null;
+		try {
+			db = dbf.newDocumentBuilder();
+			Document doc = db.newDocument();
+			Element root = doc.createElement("trees");
+			doc.appendChild(root);
+			for (var tree: trees){
+				Element sub = doc.createElement("Tree");
+				sub.setAttribute("Kind",tree.getKind());
+				if (tree.getDimension()!=null){
+					sub.setAttribute("Dimension",tree.getDimension().getDiameter()+" "+ tree.getDimension().getHeight());
+				}
+				if (tree.getColor()!=null){
+					sub.setAttribute("Color", tree.getColor());
+				}
+				if (tree.getTypes()!=null){
+					StringBuilder types = new StringBuilder();
+					for (int i = 0; i < tree.getTypes().size(); i++) {
+						if (i==0){
+							types.append(tree.getTypes().get(i));
+						}else {
+							types.append(";").append(tree.getTypes().get(i));
+						}
+					}
+					sub.setAttribute("Types", types.toString());
+				}
+				root.appendChild(sub);
+			}
+			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			transformer.setOutputProperty(OutputKeys.ENCODING, "utf-8");
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(file);
+			transformer.transform(source, result);
+		} catch (ParserConfigurationException | TransformerException e) {
+			e.printStackTrace();
+		}
 		//END YOUT CODE
 	}
 
@@ -51,8 +102,50 @@ public class TreeCollection {
 	 */
 	public static TreeCollection loadFromFile(File file) {
 		//START YOUT CODE
-		
-		
+
+		var res = new ArrayList<Tree>();
+
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db;
+		try {
+			db = dbf.newDocumentBuilder();
+			Document doc = db.parse(file);
+			doc.getDocumentElement().normalize();
+
+			var nl = doc.getElementsByTagName("Tree");
+			for (int i = 0; i < nl.getLength(); i++) {
+				var n = nl.item(i);
+				if (n.getNodeType() == Node.ELEMENT_NODE){
+					Element sub = (Element) n;
+					String kind = sub.getAttribute("Kind");
+					String dimensionString = sub.getAttribute("Dimension");
+					Dimension dimension = null;
+					if (!dimensionString.equals("")){
+						dimension = new Dimension(Integer.parseInt(dimensionString.split(" ")[0]),Integer.parseInt(dimensionString.split(" ")[1]));
+					}
+					String colour = null;
+					if (!sub.getAttribute("Color").equals("")){
+						colour = sub.getAttribute("Color");
+					}
+					String [] types = null;
+					if (!sub.getAttribute("Types").equals("")){
+						types=sub.getAttribute("Types").split(";");
+					}
+					Tree tree = new Tree();
+					tree.withKind(kind).withColor(colour).withDimension(dimension);
+					if (types!=null){
+						for (var type: types){
+							tree.addType(type);
+						}
+					}
+					res.add(tree);
+				}
+			}
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			e.printStackTrace();
+		}
+
+		return new TreeCollection(res);
 		//END YOUT CODE	
 	}
 

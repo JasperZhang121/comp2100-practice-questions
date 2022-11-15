@@ -21,10 +21,15 @@ public class Tokeniser {
         // TODO: Complete this method
         // START YOUR CODE
 
-
+        for (int i = 0; i < _buffer.length(); i++) {
+            if (_buffer.charAt(i)=='(') {
+                return new Token(Token.Type.LEFT_BRACKET,"(");
+            }
+            if (_buffer.charAt(i)==')')
+                return new Token(Token.Type.RIGHT_BRACKET,")");
+        }
 
         // END YOUR CODE
-
         return null;
     }
 

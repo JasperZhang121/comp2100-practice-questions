@@ -21,8 +21,8 @@ public class Tokeniser {
         // TODO: Complete this method
         // START YOUR CODE
 
-
-
+        if (_buffer.charAt(0)=='(') return new Token(Token.Type.LEFT_BRACKET,"(");
+        if (_buffer.charAt(0)==')') return new Token(Token.Type.RIGHT_BRACKET,")");
         // END YOUR CODE
 
         return null;
