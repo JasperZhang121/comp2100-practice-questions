@@ -20,7 +20,7 @@ It brings me immense joy to witness the peak views on June 4th for this reposito
 
 Curiously enough, after June 5th, there haven't been any views. It seems everyone was busy conquering their exams or taking a well-deserved break!
 
-Speaking of exams, I couldn't help but check this year's final date, and guess what? It's on June 5th! What a coincidence! 😄
+Speaking of exams, I couldn't help but check this year's final exam date of comp2100, and guess what? It's on June 5th! What a coincidence! 😄
 
 I hope my comp2100 practice questions and solutions brought you a mix of learning and enjoyment. Wishing everyone success and a fantastic journey in their studies!
 
