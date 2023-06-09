@@ -24,8 +24,6 @@ Speaking of exams, I couldn't help but check this year's final date, and guess w
 
 I hope my comp2100 practice questions and solutions brought you a mix of learning and enjoyment. Wishing everyone success and a fantastic journey in their studies!
 
-Feel free to modify and adapt the message further to reflect your personal style and tone. The revised version highlights your happiness, the timing of the peak views, and adds a touch of amusement with the exam date coincidence.
-
 ---
 
 Last update: 10/06/2023
